@@ -13,14 +13,15 @@ function Cita({cita}) {
 
 
 function Formulario({ crearCita }) {
-
-  const [cita, actualizarCita] = useState({
+  const stateInicial = {
     mascota : '',
     propietario: '',
     fecha: '',
     hora: '',
     sintomas: ''
-  });
+  }
+
+  const [cita, actualizarCita] = useState(stateInicial);
 
   const actualizarState = e => {
     actualizarCita({
@@ -33,13 +34,11 @@ function Formulario({ crearCita }) {
   const enviarCita = e => {
     e.preventDefault();
     
-    console.log("TCL: Formulario -> cita", cita);
-
+    // pasar la cita hacia el componente principal
     crearCita(cita);
 
-    // pasar la cita hacia el componente principal
-
     // reiniciar el state (reiniciar el form)
+    actualizarCita(stateInicial)
   };
 
   return (
@@ -53,6 +52,7 @@ function Formulario({ crearCita }) {
           className="u-full-width" 
           placeholder="Nombre Mascota" 
           onChange={actualizarState}
+          value={cita.mascota}
         />
 
         <label>Nombre Dueño</label>
@@ -62,6 +62,7 @@ function Formulario({ crearCita }) {
           className="u-full-width"  
           placeholder="Nombre Dueño de la Mascota" 
           onChange={actualizarState}
+          value={cita.propietario}
         />
 
         <label>Fecha</label>
@@ -70,6 +71,7 @@ function Formulario({ crearCita }) {
           className="u-full-width"
           name="fecha"
           onChange={actualizarState}
+          value={cita.fecha}
         />            
 
 
@@ -79,6 +81,7 @@ function Formulario({ crearCita }) {
           className="u-full-width"
           name="hora" 
           onChange={actualizarState}
+          value={cita.hora}
         />
 
         <label>Sintomas</label>
@@ -86,6 +89,7 @@ function Formulario({ crearCita }) {
           className="u-full-width"
           name="sintomas"
           onChange={actualizarState}
+          value={cita.sintomas}
         ></textarea>
 
       <button type="submit" className="button-primary u-full-width">Agregar</button>
