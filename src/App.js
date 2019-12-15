@@ -125,6 +125,8 @@ function App() {
     guardarCita(nuevasCitas);
   };
 
+  // Cargar dinamicamente un Titulo
+  const titulo = Object.keys(citas).length === 0 ? 'No hay citas': 'Administrar las citas aquí';
 
   return (
     <Fragment>
@@ -135,6 +137,9 @@ function App() {
             <Formulario crearCita={crearCita}/>
           </div>
           <div className="one-half column">
+            <h2>
+              {titulo}
+              </h2>
             {citas.map((cita, index) => (
               <Cita
                 key={index}
