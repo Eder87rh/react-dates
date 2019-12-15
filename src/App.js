@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 
 function Cita({cita, index, eliminarCita}) {
   return (
@@ -103,10 +103,16 @@ function Formulario({ crearCita }) {
 
 function App() {
 
+  // cargar las citas de localstorage como state inicial
+  let citasIniciales = JSON.parse(localStorage.getItem("citas"));
+    if(!citasIniciales) {
+      citasIniciales = [];
+    }
+
   // useState retorna 2 resultados
   // El state actual = this.state;
   // Funcion que actualiza el state this.setState();
-  const [citas, guardarCita] = useState([]);
+  const [citas, guardarCita] = useState(citasIniciales);
 
   // Agregar las nuevas citas al state
   const crearCita = cita => {
@@ -124,6 +130,15 @@ function App() {
     nuevasCitas.splice(index, 1);
     guardarCita(nuevasCitas);
   };
+
+  useEffect(() => {
+    let citasIniciales = JSON.parse(localStorage.getItem("citas"));
+    if(citasIniciales) {
+      localStorage.setItem("citas", JSON.stringify(citas));
+    } else {
+      localStorage.setItem("citas", JSON.stringify([]));
+    }
+  }, [citas]);
 
   // Cargar dinamicamente un Titulo
   const titulo = Object.keys(citas).length === 0 ? 'No hay citas': 'Administrar las citas aquí';
