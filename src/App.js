@@ -1,5 +1,16 @@
 import React, { useState, Fragment } from 'react';
 
+function Cita({cita}) {
+  return (
+    <div className="cita">
+      <p>Mascota: <span>{cita.mascota}</span></p>
+      <p>Dueño: <span>{cita.propietario}</span></p>
+      <p>Fecha: <span>{cita.hora}</span></p>
+      <p>Sintomas: <span>{cita.sintomas}</span></p>
+    </div>
+  );
+}
+
 
 function Formulario({ crearCita }) {
 
@@ -110,7 +121,13 @@ function App() {
             <Formulario crearCita={crearCita}/>
           </div>
           <div className="one-half column">
-
+            {citas.map((cita, index) => (
+              <Cita
+                key={index}
+                index={index}
+                cita={cita}
+              />
+            ))}
           </div>
         </div>
       </div>
