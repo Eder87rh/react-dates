@@ -1,12 +1,15 @@
 import React, { useState, Fragment } from 'react';
 
-function Cita({cita}) {
+function Cita({cita, index, eliminarCita}) {
   return (
     <div className="cita">
       <p>Mascota: <span>{cita.mascota}</span></p>
       <p>Dueño: <span>{cita.propietario}</span></p>
       <p>Fecha: <span>{cita.hora}</span></p>
       <p>Sintomas: <span>{cita.sintomas}</span></p>
+      <button
+        onClick={() => eliminarCita(index)} 
+        type="button" className="button eliminar u-full-width"> Eliminar</button>
     </div>
   );
 }
@@ -115,6 +118,13 @@ function App() {
     
   };
 
+  // Elimina las citas del state
+  const eliminarCita = index => {
+    const nuevasCitas = [...citas];
+    nuevasCitas.splice(index, 1);
+    guardarCita(nuevasCitas);
+  };
+
 
   return (
     <Fragment>
@@ -130,6 +140,7 @@ function App() {
                 key={index}
                 index={index}
                 cita={cita}
+                eliminarCita={eliminarCita}
               />
             ))}
           </div>
